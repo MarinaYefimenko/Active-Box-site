@@ -58,18 +58,6 @@ p {
     align-items: center;
 }    
 
-.header.fixed {
-    position: fixed;
-    background: #30344e;
-    height: auto;
-}
-
-.header.fixed .header__inner{
-    padding-bottom: 15px;
-    padding-top: 15px;
-    border-bottom: 0;
-}
-
 /*Nav===============================================*/
 
 .nav   {
@@ -94,6 +82,38 @@ p {
 .nav__link:hover {
     text-decoration: none;
     opacity: 1;
+}
+
+.cross {
+    cursor: pointer;
+    position: absolute;
+    top: 30px;
+    right: 45px;
+    z-index: 1;
+    padding: 13px 0;
+    display: none;
+}
+
+.cross:before,
+.cross:after {
+    content: "";
+    position: absolute;
+    width: 24px;
+    height: 4px;
+    background: rgb(255, 255, 255);
+}
+
+.cross:before {
+    transform: rotate(45deg);
+}
+
+.cross:after {
+    transform: rotate(-45deg);
+}
+
+.cross:hover:before,
+.cross:hover:after {
+    background: #fce38a;
 }
 
 
@@ -183,8 +203,9 @@ p {
 .modal__title{
     text-align:center;
     font-size:22px;
-    text-transform:uppercase
+    line-height: 1.6;
 }
+
 .modal__input{
     display:block;
     margin:20px auto 20px auto;
@@ -409,22 +430,20 @@ p {
     background-color: #c6cacc;
 }
 
-.social__item img{
-    opacity: 0.6;
-    height: 18px;
-    display: block;
-    transition: all .1s linear;
+.social__icon{
+    padding: 8px;
+    fill: #c6cacc;
 }
+.social__icon:hover{
+    fill: #fff;
+}
+
 
 .social--footer .social__item{
     background-color: transparent;
     border-width: 2px;
     border-color: #fff;
     border-radius: 2px;
-}
-
-.social__item img:hover{
-    opacity: 1;
 }
 
 .social--footer .social__icon{
@@ -437,7 +456,7 @@ p {
 }
 
 .social--footer .social__icon:hover{
-    fill: black;
+    fill: #3a3e64;
 }
 
 
@@ -601,7 +620,6 @@ p {
 
 /*Footer==========================================================================*/
 .footer{
-    
     background-color: #3a3e64;
 }
 
@@ -625,7 +643,8 @@ p {
     margin-bottom: 10px;
 }
 
-.footer__address{
+.adress{
+    text-decoration: none;
     color: rgba(255, 255, 255, 0.5);
     font-style: normal;
     line-height: 1.5;

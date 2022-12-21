@@ -36,49 +36,24 @@ var __generator = (this && this.__generator) || function (thisArg, body) {
     }
 };
 document.addEventListener('DOMContentLoaded', function () {
-    function showUpBtn(btnSelector) {
+    function displayUpBtn(btnSelector) {
         var upBtn = document.querySelector(btnSelector), flag = true;
         if (upBtn === null) {
             throw new Error('Could not find button');
         }
         function showUpBtn() {
-            if (upBtn === null) {
-                throw new Error('Could not find button');
-            }
-            upBtn.classList.add(btnSelector.substring(1) + '__show');
+            upBtn === null || upBtn === void 0 ? void 0 : upBtn.classList.add(btnSelector.substring(1) + '__show');
             flag = false;
         }
         function hideUpBtn() {
-            if (upBtn === null) {
-                throw new Error('Could not find button');
-            }
-            upBtn.classList.remove(btnSelector.substring(1) + '__show');
+            upBtn === null || upBtn === void 0 ? void 0 : upBtn.classList.remove(btnSelector.substring(1) + '__show');
             flag = true;
         }
-        window.addEventListener('scroll', function () {
-            if (flag) {
-                if (scrollY < document.documentElement.clientHeight) {
-                    showUpBtn();
-                }
-            }
-            if (scrollY == 0) {
-                hideUpBtn();
-            }
-        });
-        upBtn.addEventListener('click', function () {
-            window.scrollTo(pageXOffset, 0);
-            hideUpBtn();
-        });
+        ;
     }
     ;
-    showUpBtn('.up__btn');
+    displayUpBtn('.up__btn');
     function showModal(modalSelector, modal, header) {
-        if (modal === null) {
-            throw new Error('Could not find modal window');
-        }
-        if (header === null) {
-            throw new Error('Could not find header');
-        }
         header.style.width = document.body.offsetWidth + 'px';
         var paddingOffset = document.body.clientWidth - document.body.offsetWidth + 'px';
         if (paddingOffset !== '0px') {
@@ -91,12 +66,6 @@ document.addEventListener('DOMContentLoaded', function () {
         document.body.style.overflow = 'hidden';
     }
     function hideModal(modalSelector, modal, header) {
-        if (modal === null) {
-            throw new Error('Could not find modal window');
-        }
-        if (header === null) {
-            throw new Error('Could not find header');
-        }
         header.style.width = '100%';
         modal.classList.remove(modalSelector.substring(1) + '__show');
         document.body.style.overflow = '';
@@ -112,6 +81,9 @@ document.addEventListener('DOMContentLoaded', function () {
         }
         if (close === null) {
             throw new Error('Could not find close element');
+        }
+        if (header === null) {
+            throw new Error('Could not find close header');
         }
         btn.addEventListener('click', function () { showModal(modalSelector, modal, header); });
         close.addEventListener('click', function () { hideModal(modalSelector, modal, header); });
@@ -146,15 +118,6 @@ document.addEventListener('DOMContentLoaded', function () {
             document.body.style.overflow = 'hidden';
         });
         function close() {
-            if (burger === null) {
-                throw new Error('Could not find burger');
-            }
-            if (menu === null) {
-                throw new Error('Could not find menu');
-            }
-            if (cross === null) {
-                throw new Error('Could not find close element');
-            }
             menu.style.display = "none";
             burger.style.display = "block";
             cross.style.display = "none";
@@ -183,7 +146,7 @@ document.addEventListener('DOMContentLoaded', function () {
         function scrollTo(point) {
             window.scroll({
                 left: 0,
-                top: point.offsetTop,
+                top: point === null || point === void 0 ? void 0 : point.offsetTop,
                 behavior: 'smooth'
             });
         }
@@ -225,7 +188,7 @@ document.addEventListener('DOMContentLoaded', function () {
             });
         }); };
         function bindpostData(form) {
-            form.addEventListener('submit', function (e) {
+            form === null || form === void 0 ? void 0 : form.addEventListener('submit', function (e) {
                 e.preventDefault();
                 var formData = new FormData(form);
                 var json = JSON.stringify(Object.fromEntries(formData.entries()));
@@ -241,14 +204,17 @@ document.addEventListener('DOMContentLoaded', function () {
             });
         }
         function showThanksModal(message) {
-            var modal = document.querySelector(modalSelector), pervModalDialog = document.querySelector(modalContentSelector), header = document.querySelector(headerSelector);
+            var modal = document.querySelector(modalSelector), prevModalDialog = document.querySelector(modalContentSelector), header = document.querySelector(headerSelector);
             if (modal === null) {
                 throw new Error('Could not find modal window');
             }
-            if (pervModalDialog === null) {
+            if (prevModalDialog === null) {
                 throw new Error('Could not find modal dialog');
             }
-            pervModalDialog.style.display = 'none';
+            if (header === null) {
+                throw new Error('Could not find header');
+            }
+            prevModalDialog.style.display = 'none';
             showModal(modalSelector, modal, header);
             var thanksModal = document.createElement('div');
             thanksModal.classList.add('modal__dialog');
@@ -256,7 +222,7 @@ document.addEventListener('DOMContentLoaded', function () {
             modal.append(thanksModal);
             setTimeout(function () {
                 thanksModal.remove();
-                pervModalDialog.style.display = 'block';
+                prevModalDialog.style.display = 'block';
                 hideModal(modalSelector, modal, header);
             }, 3000);
         }

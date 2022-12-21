@@ -2,57 +2,28 @@
 
 document.addEventListener('DOMContentLoaded', () => {
 
-    function showUpBtn(btnSelector: string): void {
-        let upBtn: HTMLElement | null = document.querySelector(btnSelector),
-            flag: boolean = true;
+    function displayUpBtn(btnSelector: string): void {
+        let upBtn = document.querySelector(btnSelector) as HTMLButtonElement,
+            flag = true;
 
         if (upBtn === null) {
             throw new Error('Could not find button')
         }
 
         function showUpBtn(): void {
-            if (upBtn === null) {
-                throw new Error('Could not find button')
-            }
-            upBtn.classList.add(btnSelector.substring(1) + '__show');
+            upBtn?.classList.add(btnSelector.substring(1) + '__show');
             flag = false;
         }
 
         function hideUpBtn(): void {
-            if (upBtn === null) {
-                throw new Error('Could not find button')
-            }
-            upBtn.classList.remove(btnSelector.substring(1) + '__show');
+            upBtn?.classList.remove(btnSelector.substring(1) + '__show');
             flag = true;
-        }
-
-        window.addEventListener('scroll', (): void => {
-            if (flag) {
-                if (scrollY < document.documentElement.clientHeight) {
-                    showUpBtn();
-                }
-            }
-            if (scrollY == 0) {
-                hideUpBtn();
-            }
-        })
-
-        upBtn.addEventListener('click', (): void => {
-            window.scrollTo(pageXOffset, 0);
-            hideUpBtn();
-        })
+        };
 
     };
-    showUpBtn('.up__btn');
+    displayUpBtn('.up__btn');
 
-    function showModal(modalSelector: string, modal: HTMLElement, header: HTMLElement | null): void {
-        if (modal === null) {
-            throw new Error('Could not find modal window')
-        }
-        if (header === null) {
-            throw new Error('Could not find header')
-        }
-
+    function showModal(modalSelector: string, modal: HTMLDivElement, header: HTMLDivElement): void {
         header.style.width = document.body.offsetWidth + 'px';
         let paddingOffset: string = document.body.clientWidth - document.body.offsetWidth + 'px';
         if (paddingOffset !== '0px') {
@@ -65,14 +36,7 @@ document.addEventListener('DOMContentLoaded', () => {
         document.body.style.overflow = 'hidden';
     }
 
-    function hideModal(modalSelector: string, modal: HTMLElement, header: HTMLElement | null): void {
-        if (modal === null) {
-            throw new Error('Could not find modal window')
-        }
-        if (header === null) {
-            throw new Error('Could not find header')
-        }
-
+    function hideModal(modalSelector: string, modal: HTMLDivElement, header: HTMLDivElement): void {
         header.style.width = '100%';
         modal.classList.remove(modalSelector.substring(1) + '__show');
         document.body.style.overflow = '';
@@ -80,10 +44,10 @@ document.addEventListener('DOMContentLoaded', () => {
     }
 
     function toggleModal(modalSelector: string, btnSelector: string, closeSelector: string, headerSelector: string): void {
-        const modal: HTMLElement | null = document.querySelector(modalSelector),
-            btn: HTMLElement | null = document.querySelector(btnSelector),
-            close: HTMLElement | null = document.querySelector(closeSelector),
-            header: HTMLElement | null = document.querySelector(headerSelector);
+        const modal = document.querySelector(modalSelector) as HTMLDivElement,
+            btn = document.querySelector(btnSelector) as HTMLButtonElement,
+            close = document.querySelector(closeSelector) as HTMLDivElement,
+            header = document.querySelector(headerSelector) as HTMLDivElement;
 
         if (modal === null) {
             throw new Error('Could not find modal window')
@@ -94,7 +58,9 @@ document.addEventListener('DOMContentLoaded', () => {
         if (close === null) {
             throw new Error('Could not find close element')
         }
-
+        if (header === null) {
+            throw new Error('Could not find close header')
+        }
 
         btn.addEventListener('click', () => { showModal(modalSelector, modal, header) });
 
@@ -115,9 +81,9 @@ document.addEventListener('DOMContentLoaded', () => {
     toggleModal('.modal', '.btn__more', '.modal__close', '.header');
 
     function openBurgerMenu(burgerSelector: string, menuSelector: string, crossSelector: string, linkSelector: string): void {
-        const burger: HTMLElement | null = document.querySelector(burgerSelector),
-            menu: HTMLElement | null = document.querySelector(menuSelector),
-            cross: HTMLElement | null = document.querySelector(crossSelector),
+        const burger = document.querySelector(burgerSelector) as HTMLDivElement,
+            menu = document.querySelector(menuSelector) as HTMLDivElement,
+            cross = document.querySelector(crossSelector) as HTMLDivElement,
             links: NodeListOf<HTMLElement> = document.querySelectorAll(linkSelector);
 
         if (burger === null) {
@@ -137,15 +103,6 @@ document.addEventListener('DOMContentLoaded', () => {
         });
 
         function close(): void {
-            if (burger === null) {
-                throw new Error('Could not find burger')
-            }
-            if (menu === null) {
-                throw new Error('Could not find menu')
-            }
-            if (cross === null) {
-                throw new Error('Could not find close element')
-            }
             menu.style.display = "none";
             burger.style.display = "block";
             cross.style.display = "none";
@@ -153,7 +110,7 @@ document.addEventListener('DOMContentLoaded', () => {
         }
 
         menu.addEventListener('click', (e) => {
-            links.forEach((link: HTMLElement) => {
+            links.forEach((link?: HTMLElement) => {
                 if (e.target == link && document.documentElement.scrollWidth < 1000) {
                     close();
                 }
@@ -176,10 +133,10 @@ document.addEventListener('DOMContentLoaded', () => {
         const links: NodeListOf<HTMLElement> = document.querySelectorAll(linksSelector),
             points: NodeListOf<HTMLElement> = document.querySelectorAll(pointsSelector);
 
-        function scrollTo(point: HTMLElement): void {
+        function scrollTo(point?: HTMLElement): void {
             window.scroll({
                 left: 0,
-                top: point.offsetTop,
+                top: point?.offsetTop,
                 behavior: 'smooth'
             });
         }
@@ -196,7 +153,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
     function postRequest(formSelector: string, modalSelector: string, modalContentSelector: string, headerSelector: string): void {
 
-        const form: HTMLFormElement | null = document.querySelector(formSelector);
+        const form = document.querySelector(formSelector) as HTMLFormElement;
         if (form === null) {
             throw new Error('Could not find form')
         }
@@ -218,7 +175,7 @@ document.addEventListener('DOMContentLoaded', () => {
         };
 
         function bindpostData(form: HTMLFormElement): void {
-            form.addEventListener('submit', (e) => {
+            form?.addEventListener('submit', (e) => {
                 e.preventDefault();
 
                 const formData = new FormData(form);
@@ -237,17 +194,20 @@ document.addEventListener('DOMContentLoaded', () => {
         }
 
         function showThanksModal(message: string) {
-            const modal: HTMLElement | null = document.querySelector(modalSelector),
-                pervModalDialog: HTMLElement | null = document.querySelector(modalContentSelector),
-                header: HTMLElement | null = document.querySelector(headerSelector);
+            const modal = document.querySelector(modalSelector) as HTMLDivElement,
+                prevModalDialog = document.querySelector(modalContentSelector) as HTMLDivElement,
+                header = document.querySelector(headerSelector) as HTMLDivElement;
 
             if (modal === null) {
                 throw new Error('Could not find modal window')
             }
-            if (pervModalDialog === null) {
+            if (prevModalDialog === null) {
                 throw new Error('Could not find modal dialog')
             }
-            pervModalDialog.style.display = 'none';
+            if (header === null) {
+                throw new Error('Could not find header')
+            }
+            prevModalDialog.style.display = 'none';
 
             showModal(modalSelector, modal, header);
 
@@ -260,7 +220,7 @@ document.addEventListener('DOMContentLoaded', () => {
             modal.append(thanksModal);
             setTimeout(() => {
                 thanksModal.remove();
-                pervModalDialog.style.display = 'block';
+                prevModalDialog.style.display = 'block';
                 hideModal(modalSelector, modal, header);
             }, 3000);
         }
